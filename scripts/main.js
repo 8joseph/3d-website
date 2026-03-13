@@ -1,22 +1,61 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { FilmPass } from 'three/addons/postprocessing/FilmPass.js';
 import { Player } from './player.js'
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000000);
 
 const renderer = new THREE.WebGLRenderer();
+
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.0;
+
 renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 renderer.setAnimationLoop(animate);
 document.body.appendChild(renderer.domElement);
-//const controls = new OrbitControls(camera, renderer.domElement);
 
 const loader = new GLTFLoader();
 
-const ambientLight = new THREE.AmbientLight(0xffffff, 1.0);
+const ambientLight = new THREE.AmbientLight(0xffffff, 2.0);
 scene.add(ambientLight);
-loader.load('models/city.glb', function (gltf) { scene.add(gltf.scene) });
+
+const hazeColor = new THREE.Color(0x001c42);
+
+scene.fog = new THREE.FogExp2(hazeColor, 0.0004);
+scene.background = hazeColor;
+
+
+const composer = new EffectComposer(renderer);
+const renderPass = new RenderPass(scene, camera);
+composer.addPass(renderPass);
+const bloomPass = new UnrealBloomPass(
+    new THREE.Vector2(window.innerWidth / 4, window.innerHeight / 4),
+    1.0,   // strength
+    0.3,   // radius
+    0.1  // threshold
+);
+composer.addPass(bloomPass);
+
+const filmPass = new FilmPass();
+composer.addPass(filmPass);
+
+
+loader.load('models/city1.glb', function (gltf) {
+
+    scene.add(gltf.scene);
+    gltf.scene.scale.set(60, 60, 60);
+});
+
+//deltaaa 
+let lastTime = 0;
+let deltaTime = 0;
+
+
 
 const player = new Player(camera, scene);
 
@@ -29,17 +68,23 @@ const movement = {
 };
 
 
+
 function animate(time) {
-    player.update(movement);
-    //controls.update();
-    renderer.render(scene, camera);
+    //sort out delta time
+    deltaTime = time - lastTime;
+    lastTime = time;
+    player.update(movement, deltaTime);
+
+    composer.render();
+
 }
 
 window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    composer.setSize(window.innerWidth, window.innerHeight);
 });
 
 
