@@ -22,7 +22,7 @@ export class Player {
         });
         this.camOffset = new THREE.Vector3(0, 100, -500);
 
-        this.noBoostSpeed = 0;
+        this.noBoostSpeed = 5;
         this.boostSpeed = 20;
         this.moveSpeed = this.noBoostSpeed;
 
@@ -33,8 +33,8 @@ export class Player {
     }
 
     getTargetVelocities(movement) {
-        const turnSpeed = THREE.MathUtils.degToRad(0.6);
-        const sideTurnSpeed = THREE.MathUtils.degToRad(0.6);
+        const turnSpeed = THREE.MathUtils.degToRad(1.3);
+        const sideTurnSpeed = THREE.MathUtils.degToRad(1.3);
 
         let targetPitch = 0;
         let targetRoll = 0;
@@ -54,8 +54,24 @@ export class Player {
         return { targetPitch, targetRoll, targetForward };
     }
 
+    getTargetRotation(movement) {
+        const sideRotation = 60; //maybe change to radians or something
+        const FrontRotation = 20;
+        let targetSideRotation = 0;
+        let targetFrontRotation = 0;
+
+        if (movement.right) targetSideRotation = sideRotation;
+        if (movement.left) targetSideRotation = -sideRotation;
+        if (movement.forward) targetFrontRotation = FrontRotation;
+        if (movement.backward) targetFrontRotation = -FrontRotation;
+
+        return { targetSideRotation, targetFrontRotation };
+    }
+
 
     update(movement, delta) {
+
+        //movement
         const { targetPitch, targetRoll, targetForward } = this.getTargetVelocities(movement);
 
         this.pitchVelocity = this.lerp(this.pitchVelocity, targetPitch, delta * 0.005);
@@ -64,11 +80,22 @@ export class Player {
         this.container.rotateX(this.pitchVelocity);
         this.container.rotateZ(this.rollVelocity);
 
-        this.camera.lookAt(this.position);
-
-        this.forwardVelocity = this.lerp(this.forwardVelocity, targetForward, delta * 0.003)
+        this.forwardVelocity = this.lerp(this.forwardVelocity, targetForward, delta * 0.003);
         this.container.translateZ(this.forwardVelocity);
 
+        //model rotation
+        const { targetSideRotation, targetFrontRotation } = this.getTargetRotation(movement);
+        console.log(targetSideRotation);
+        if (this.model != null) {
+            this.model.rotation.z = this.lerp(this.model.rotation.z, THREE.MathUtils.degToRad(targetSideRotation), delta * 0.003);
+            this.model.rotation.x = this.lerp(this.model.rotation.x, THREE.MathUtils.degToRad(targetFrontRotation), delta * 0.003);
+
+        }
+
+        //console.log(this.model.rotation)
+
+        //camera
+        this.camera.lookAt(this.position);
         const idealCameraPos = this.camOffset.clone();
         this.container.localToWorld(idealCameraPos);
 

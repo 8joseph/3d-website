@@ -48,7 +48,7 @@ composer.addPass(filmPass);
 loader.load('models/city1.glb', function (gltf) {
 
     scene.add(gltf.scene);
-    gltf.scene.scale.set(60, 60, 60);
+    gltf.scene.scale.set(80, 80, 80);
 });
 
 //deltaaa 
