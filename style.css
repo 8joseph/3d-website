@@ -1,14 +1,35 @@
+html,
 body {
+    height: 100%;
     margin: 0;
-    overflow: hidden;
+    font-family: 'Science Gothic';
 }
 
-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    display: block;
+hr {
+    border-width: 3px;
+}
+
+/* Source - https://stackoverflow.com/a/10109210
+Posted by Josh Mein, modified by community. See post 'Timeline' for change history
+Retrieved 2026-05-01, License - CC BY-SA 3.0 */
+.gradient-background {
+    height: 200px;
+    /* background-image: linear-gradient(bottom, rgb(113, 61, 62) 25%, rgb(147, 92, 93) 63%, rgb(177, 120, 121) 82%);
+    background-image: -o-linear-gradient(bottom, rgb(113, 61, 62) 25%, rgb(147, 92, 93) 63%, rgb(177, 120, 121) 82%);
+    background-image: -moz-linear-gradient(bottom, rgb(113, 61, 62) 25%, rgb(147, 92, 93) 63%, rgb(177, 120, 121) 82%);
+    background-image: -webkit-linear-gradient(bottom, rgb(113, 61, 62) 25%, rgb(147, 92, 93) 63%, rgb(177, 120, 121) 82%);
+    background-image: -ms-linear-gradient(bottom, rgb(113, 61, 62) 25%, rgb(147, 92, 93) 63%, rgb(177, 120, 121) 82%); */
+
+    background-image: -webkit-gradient(linear,
+            left bottom,
+            left top,
+            color-stop(0.82, rgb(19, 24, 39)),
+            color-stop(0.13, rgb(22, 26, 43)),
+            color-stop(0.45, rgb(46, 54, 87)));
+
+}
+
+.text-indigo {
+    color: #788ce4;
+    /* Indigo color, equivalent to Tailwind's indigo-500 */
 }
