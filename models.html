@@ -23,6 +23,8 @@
 
     <script src="https://kit.fontawesome.com/6ac3910c4e.js" crossorigin="anonymous"></script>
     <script src="js/bootstrap.js"></script>
+    <script src="https://kit.fontawesome.com/15e6eb6102.js" crossorigin="anonymous"></script>
+
     <style>
         .model-container {
             position: relative;
@@ -47,37 +49,43 @@
 </head>
 
 <body class="gradient-background text-indigo">
-    <div class="container-fluid px-4 px-xxl-5">
-        <nav class="navbar navbar-expand-lg navbar-dark">
-            <a class="navbar-brand" href="#">PLACEHOLDER_TITLE</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Home<span class="sr-only"></span></a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="about.html">About<span class="sr-only"></span></a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="models.html">Models<span class="sr-only"></span></a>
-                    </li>
-                </ul>
-            </div>
+    <div class="container-lg">
 
-        </nav>
-        <hr>
-        <h2>Models</h2>
-        <div class="container-fluid">
+
+        <div class="container-fluid px-4 px-xxl-5">
+            <nav class="navbar navbar-expand-lg navbar-dark py-2">
+                <a class="navbar-brand fs-2" href="#">PLACEHOLDER_TITLE</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link fs-3" href="index.html">Home<span class="sr-only"></span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link fs-3" href="about.html">About<span class="sr-only"></span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link fs-3" href="models.html">Models<span class="sr-only"></span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link fs-3" href="free-fly.html">Free Fly<span class="sr-only"></span></a>
+                        </li>
+                    </ul>
+                </div>
+
+            </nav>
+            <hr>
+            <h2>MODEL-VIEWER</h2>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12 col-md-8 p-0">
 
                         <div class="model-container h-100 w-100">
-                            <canvas id="model-canvas"></canvas>
+                            <div class="model-border"><canvas id="model-canvas"></canvas></div>
+
                         </div>
 
                     </div>
@@ -85,39 +93,60 @@
                         <div class="d-flex justify-content-between  flex-column gap-3 h-100">
                             <div class="p-4">
                                 <div class="d-flex justify-content-between  flex-column gap-3 h-100">
-                                    <button type="button" class="btn btn-secondary">Toggle Wireframe</button>
-                                    <button type="button" class="btn btn-secondary">Rotate</button>
-                                    <button type="button" class="btn btn-secondary  ">Switch Model </button>
+                                    <button type="button" class="retro-button" id="wireframe-btn">Toggle
+                                        Wireframe</button>
+                                    <button type="button" class="retro-button" id="rotate-btn">Rotate</button>
+                                    <button type="button" class="retro-button" id="effects-btn">Toggle Effects</button>
+                                    <button type="button" class="retro-button " id="switch-btn">Switch Model </button>
+
                                 </div>
                             </div>
-                            <div class="p-4 border">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean congue metus arcu,
-                                in
-                                vulputate
-                                mauris aliquam sit amet. Quisque vel rhoncus libero. Vestibulum sagittis nisl sit
-                                amet
-                                hendrerit
-                                rhoncus. Integer ornare tellus aliquet ex porttitor, sed aliquam nulla accumsan.
-                                Pellentesque nec
-                                malesuada felis. Proin et lectus facilisis, feugiat eros id, efficitur nibh.
-                                Vestibulum
-                                ultrices
-                                pharetra magna tempus consequat. Nam auctor eleifend orci, id condimentum nibh
-                                finibus
-                                at.
-                                Curabitur
-                                diam metus, malesuada quis libero eget, aliquet molestie nisl.
+                            <div>
+                                <h4>MODEL-NAME</h4>
+                                <div class="p-4 border text-area">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean congue metus arcu,
+                                    in
+                                    vulputate
+                                    mauris aliquam sit amet. Quisque vel rhoncus libero. Vestibulum sagittis nisl sit
+                                    amet
+                                    hendrerit
+                                    rhoncus. Integer ornare tellus aliquet ex porttitor, sed aliquam nulla accumsan.
+                                    Pellentesque nec
+                                    malesuada felis. Proin et lectus facilisis, feugiat eros id, efficitur nibh.
+                                    Vestibulum
+                                    ultrices
+                                    pharetra magna tempus consequat. Nam auctor eleifend orci, id condimentum nibh
+                                    finibus
+                                    at.
+                                    Curabitur
+                                    diam metus, malesuada quis libero eget, aliquet molestie nisl.
+                                </div>
                             </div>
+
 
                         </div>
                     </div>
 
                 </div>
+
+
+
             </div>
+            <hr>
+            <footer>
+                <div class="d-flex justify-content-between">
+                    <p>Website by Joseph New</p>
+                    <div>
+                        <a href="https://josephnew.xyz/"><i class="fa-solid fa-globe"></i></a>
+                        <a href="https://www.linkedin.com/in/joseph-new/"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
 
 
+                </div>
+
+            </footer>
         </div>
-        <hr>
+
 
         <script type="module" src="scripts/model.js"></script>
 </body>
