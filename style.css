@@ -62,3 +62,20 @@ Retrieved 2026-05-01, License - CC BY-SA 3.0 */
     border-color: white;
     border: 4px solid gray;
 }
+
+.card {
+    background-image: linear-gradient(to bottom, #161a2b, #3d4877);
+    color: white;
+}
+
+.card-text {
+    font-family: 'Verdana';
+    line-height: 1rem;
+}
+
+#main_3d_image {
+    background-image: url(assets/index-starmap_g8k.png);
+    background-size: cover;
+    /* background-repeat: no-repeat; */
+    height: 201px;
+}

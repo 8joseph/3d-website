@@ -13,8 +13,15 @@ let loadedModel, mixer, actions, secondModelMixer, secondModelActions;
 let isWireframe = false;
 let useEffects = true;
 let lastTime = 0, deltaTime = 0;
-let models = ["models/ships/tie-fighter.glb", "models/ships/spacejet.glb"]
+let models = ["models/ships/tie-fighter.glb", "models/ships/lambda-shuttle.glb", "models/ships/spacejet.glb"]
+let model_names = ["TIE-FIGHTER", "LAMBDA-SHUTTLE", "SPACEJET"]
+let model_descs = [
+    "The signature starfighter of the Galactic Empire and symbol of its space superiority. Instantly recognizable from the roar of its engines as well as its unique design, the TIE/ln exuded Imperial power and prestige across the galaxy, seeing use throughout the Empire's reign.  (Wookiepedia)",
+    "A multi-purpose transport with a trihedral foil design used by the Galactic Empire, and was considered an elegant departure from the standards of brutish Imperial engineering. The shuttles were often used by dignitaries and high-ranking officers, but were more commonly found ferrying stormtroopers or cargo. (Wookiepedia)",
+    "A spaceship designed by me. Used for light travel and perhaps the odd dogfight on occaison. "
+]
 let cur_model = 0;
+let model_text, model_desc;
 let flyingOut = false, flyingIn = false, flightProgress = 0, flightSpeed = 0.8;
 
 function init() {
@@ -36,8 +43,15 @@ function init() {
     renderer.domElement.style.width = '100%';
     renderer.domElement.style.height = '100%';
 
-    const ambient = new THREE.HemisphereLight(0xffffbb, 0x808020, 10);
-    scene.add(ambient);
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.0;
+    // const ambient = new THREE.HemisphereLight(0xffffbb, 0xffffff, 2);
+    // scene.add(ambient);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 7);
+    scene.add(ambientLight);
+    const sunLight = new THREE.DirectionalLight(0xffffff, 1.2);
+    sunLight.position.set(10, 10, 10);
+    scene.add(sunLight);
 
 
     const textureLoader = new THREE.TextureLoader();
@@ -56,9 +70,9 @@ function init() {
     composer.addPass(renderPass);
     const bloomPass = new UnrealBloomPass(
         new THREE.Vector2(window.innerWidth / 4, window.innerHeight / 4),
-        1.0,   // strength
+        0.4,   // strength
         0.3,   // radius
-        0.1  // threshold
+        0.85  // threshold
     );
     composer.addPass(bloomPass);
 
@@ -74,6 +88,11 @@ function init() {
 
     controls.target.set(0, 0, 0);
     controls.update();
+
+    model_text = document.getElementById("model-name-text");
+    model_text.textContent = model_names[cur_model];
+    model_desc = document.getElementById("model-description-text");
+    model_desc.textContent = model_descs[cur_model];
 
     loadModel("models/ships/tie-fighter.glb");
     window.addEventListener('resize', onResize, false);
@@ -99,10 +118,13 @@ function update() {
             loadedModel.scale.lerpVectors(new THREE.Vector3(1, 1, 1), new THREE.Vector3(0, 0, 0), t);
             if (t >= 1.0) {
 
-                cur_model += 1
+                cur_model += 1;
                 if (cur_model >= models.length) {
                     cur_model = 0;
                 }
+                model_text.textContent = model_names[cur_model];
+                model_desc.textContent = model_descs[cur_model];
+
                 loadModel(models[cur_model]);
                 flyingOut = false;
                 flyingIn = true;
@@ -219,6 +241,7 @@ switchButton.addEventListener('click', function () {
 
 function doSwithModel() {
     flyingOut = true;
+
 }
 
 
