@@ -74,8 +74,9 @@ Retrieved 2026-05-01, License - CC BY-SA 3.0 */
 }
 
 #main_3d_image {
-    background-image: url(assets/index-starmap_g8k.png);
+    /* background-image: url(assets/index-starmap_g8k.png); */
     background-size: cover;
+
     /* background-repeat: no-repeat; */
     height: 201px;
 }

@@ -1,1 +1,213 @@
-yaydyadaydayday
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>SpaceShipOnline</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Science+Gothic:wght@100..900&family=Smooch+Sans:wght@100..900&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+
+    <script src="https://kit.fontawesome.com/6ac3910c4e.js" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="https://kit.fontawesome.com/15e6eb6102.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body class="gradient-background text-indigo">
+    <div class="container-lg">
+
+
+        <div class="container-fluid px-4 px-xxl-5">
+            <nav class="navbar navbar-expand-lg navbar-dark py-2">
+                <a class="navbar-brand fs-2" href="#">SpaceShipOnline</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link fs-3" href="index.html">Home<span class="sr-only"></span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link fs-3" href="about.html">About<span class="sr-only"></span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link fs-3" href="models.html">Models<span class="sr-only"></span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link fs-3" href="free-fly.html">Free Fly<span class="sr-only"></span></a>
+                        </li>
+                    </ul>
+                </div>
+
+            </nav>
+            <hr>
+            <h2>ABOUT</h2>
+            <div class="container">
+                <div class="about-contents">
+                    <h3>
+                        Models
+                    </h3>
+
+                    <p>For this website I created three spaceship models in Blender. Two of these take inspiration from
+                        star
+                        wars (Lambda Shuttle and Tie Fighter) one is my own design. I used a range of Blender techniques
+                        in
+                        this process. The modifiers I used the most where boolean, subdivision surface, bevel, and
+                        mirror.
+                        <br>
+                        I also spent a lot of time making procedural textures in the shader editor for my models to
+                        create
+                        convincing materials for the spaceships. Using a mix of noise and musgrave nodes and editing the
+                        outputs of these created a nice worn metallic effect for my models. As the GLB file format does
+                        not
+                        support complex texutures the UVs had to be unwrapped and the textures baked into an image
+                        before
+                        the models could be exported. Effects such as roughness and metallic on the principled BSDF
+                        where
+                        still utilised.
+                    </p>
+                    <h3>
+                        Design
+                    </h3>
+                    <p>
+                        The website follows a retro sci-fi aesthetic, taking inspiration from late 00s and early 2010s
+                        web design. I used a range of bootstrap components and custom CSS styling to achieve this
+                        effect. The 3D scenes use both a direct and ambient light source.
+                    </p>
+                    <h3>
+                        Intergration
+                    </h3>
+                    <p>
+                        The whole website is responsive, working well on both desktop and mobile window sizes, different
+                        UI elements on different pages are resized accordingly. Images are resized to fit the page
+                        correctly depending on window size. Sounds are present on both Model and Free Fly pages. On the
+                        free fly page, the sound of the spaceship engine changes depending on the movement of the ship
+                        (direction / boost).
+                    </p>
+                    <h3>
+                        Interaction
+                    </h3>
+                    <p>
+                        On the model page, alongside the HTML buttons to change the state of the canvas, the user can
+                        look around the scene using the standard ThreeJS orbit controls. On the Free Fly page, the user
+                        can use the WASD keys to control the spaceship, press SHIFT to speed the spaceship up, and press
+                        the 1, 2, and 3 keys on the keyboard to change the spaceship model. The spaceship controls are
+                        intuiative and
+                        works similarly to other spaceship-flying video games.
+                    </p>
+                    <h3>
+                        Implementation
+                    </h3>
+                    <p>I have tested this website both on my own laptop and on a lab computer to ensure
+                        everything works correctly on different machines. I have also conducted user testing ,
+                        recieving feedback
+                        from both a technical and non-technical audience. Some feedback I received:
+                    <ul>
+                        <li>"The lighting is too dark" (as a result of this I increased light levels in the scene)</li>
+                        <li>"I really like the cyberpunk visuals"</li>
+                        <li>"I found the controls [on the Free Fly page] hard at first, but they made sense after I got
+                            used to them"</li>
+                    </ul>
+                    </p>
+                    <h3>Deeper Undestanding</h3>
+                    <p>
+                        The Free Fly page offers a simple interactive gameplay experince where the user can fly a
+                        spaceship
+                        through a sci fi city. This involves handling input, sound feedback, a lot of linear
+                        interpolation, and procedural animation. I leveraged object-oriented javascript techniques to
+                        abstract out the player into a class.
+                        <br>
+                        I used various post-processing effects, using the ThreeJS EffectComposer. The 3D modelling
+                        complexity and
+                        techniques used also go beyond that which was taught in the labs.
+                    </p>
+                    <h3>
+                        Generative AI Usage
+                    </h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Use Case</th>
+                                <th>Tool</th>
+                                <th>Outcome</th>
+                            </tr>
+                            <tr>
+                                <td>How to achieve a sci-fi city effect in ThreeJS</td>
+                                <td>Google Gemini</td>
+                                <td>Ai highlighted some effects to use such as bloom, and how a modular components could
+                                    be used to create a city in Blender.</td>
+                            </tr>
+                            <tr>
+                                <td>How to bake textures in Blender</td>
+                                <td>Google Gemini</td>
+                                <td>Gemini walked me through how to bake procedural textures in Blender to get them
+                                    ready for a GLB export.</td>
+                            </tr>
+                            <tr>
+                                <td>Light Miscillaneous ThreeJs code debugging </td>
+                                <td>Microsoft CoPilot</td>
+                                <td>CoPilot helped me find some errors in my code: Incorrect imports, spelling mistakes,
+                                    ThreeJs canvas not appearing the correct size.</td>
+                            </tr>
+
+                        </thead>
+                    </table>
+                    <h3>
+                        Project GitHub Link
+                    </h3>
+                    <p>Please follow this <a href="https://github.com/8joseph/3d-website" target="_blank">link</a> for
+                        GitHub link for the source code of this project.</p>
+                    <h3>Credits</h3>
+                    <p I used external assets from these sources:>
+                    <ul>
+                        <li>Textures from <a href="https://texturelabs.org/" target="_blank">Texture Labs</a></li>
+                        <li>Blender Material Node from <a
+                                href="https://christopherfraser.gumroad.com/l/FREE-spaceship-texturing-tools?layout=profile&recommended_by=library"
+                                target="_blank">Christopher Fraser</a></li>
+                        <li>Sounds from <a href="https://splice.com/" target="_blank">Splice</a></li>
+                    </ul>
+
+                    </p>
+
+
+                </div>
+
+                <hr>
+                <footer>
+                    <div class="d-flex justify-content-between">
+                        <p>Website by Joseph New</p>
+                        <div>
+                            <a href="https://josephnew.xyz/" target="_blank"><i class="fa-solid fa-globe"></i></a>
+                            <a href="https://www.linkedin.com/in/joseph-new/" target="_blank"><i
+                                    class="fa-brands fa-linkedin"></i></a>
+                            <a href="https://github.com/8joseph" target="_blank"><i class="fa-brands fa-github"></i></a>
+                        </div>
+
+
+                    </div>
+
+                </footer>
+            </div>
+
+
+</body>
+
+</html>
