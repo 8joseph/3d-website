@@ -48,7 +48,7 @@ const filmPass = new FilmPass();
 composer.addPass(filmPass);
 
 
-loader.load('models/citytest.glb', function (gltf) {
+loader.load('models/city.glb', function (gltf) {
 
     scene.add(gltf.scene);
     gltf.scene.scale.set(80, 80, 80);
