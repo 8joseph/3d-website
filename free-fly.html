@@ -1,9 +1,43 @@
 <!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <title>3D Website</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="free-fly-style.css">
+    <title>PLACEHOLDER_TITLE</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Science+Gothic:wght@100..900&family=Smooch+Sans:wght@100..900&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+
+    <script src="https://kit.fontawesome.com/6ac3910c4e.js" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="https://kit.fontawesome.com/15e6eb6102.js" crossorigin="anonymous"></script>
+
+    <style>
+        .model-container {
+            position: relative;
+            min-height: 60vh;
+        }
+
+        #free-fly-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
     <script type="importmap">
         {
         "imports": {
@@ -14,6 +48,67 @@
     </script>
 </head>
 
-<body>
-    <script type="module" src="scripts/main.js"></script>
+<body class="gradient-background text-indigo">
+    <div class="container-lg">
+
+
+        <div class="container-fluid px-4 px-xxl-5">
+            <nav class="navbar navbar-expand-lg navbar-dark py-2">
+                <a class="navbar-brand fs-2" href="#">PLACEHOLDER_TITLE</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link fs-3" href="index.html">Home<span class="sr-only"></span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link fs-3" href="about.html">About<span class="sr-only"></span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link fs-3" href="models.html">Models<span class="sr-only"></span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link fs-3" href="free-fly.html">Free Fly<span class="sr-only"></span></a>
+                        </li>
+                    </ul>
+                </div>
+
+            </nav>
+            <hr>
+            <h2>FREE-FLY</h2>
+            <div class="container">
+                <div class="container-fluid">
+
+                    <div class="model-container">
+                        <div class="model-border"><canvas id="free-fly-canvas"></canvas></div>
+                    </div>
+                    <p>WASD: Movement | SHIFT: Speed up | 1 2 3: Change spaceship model</p>
+
+
+
+                </div>
+                <hr>
+                <footer>
+                    <div class="d-flex justify-content-between">
+                        <p>Website by Joseph New</p>
+                        <div>
+                            <a href="https://josephnew.xyz/" target="_blank"><i class="fa-solid fa-globe"></i></a>
+                            <a href="https://www.linkedin.com/in/joseph-new/" target="_blank"><i
+                                    class="fa-brands fa-linkedin"></i></a>
+                            <a href="https://github.com/8joseph" target="_blank"><i class="fa-brands fa-github"></i></a>
+                        </div>
+
+
+                    </div>
+
+                </footer>
+            </div>
+
+
+            <script type="module" src="scripts/main.js"></script>
 </body>
+
+</html>

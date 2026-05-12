@@ -23,6 +23,7 @@ let model_descs = [
 let cur_model = 0;
 let model_text, model_desc;
 let flyingOut = false, flyingIn = false, flightProgress = 0, flightSpeed = 0.8;
+let sound;
 
 function init() {
     scene = new THREE.Scene();
@@ -33,7 +34,7 @@ function init() {
     const height = container.clientHeight || 400;
 
     camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 1000);
-    camera.position.set(-5, 0, -2);
+    camera.position.set(-3, 1, 5);
 
     const canvas = document.getElementById("model-canvas");
     renderer = new THREE.WebGLRenderer({ antialias: true, canvas: canvas });
@@ -47,9 +48,9 @@ function init() {
     renderer.toneMappingExposure = 1.0;
     // const ambient = new THREE.HemisphereLight(0xffffbb, 0xffffff, 2);
     // scene.add(ambient);
-    const ambientLight = new THREE.AmbientLight(0xffffff, 7);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 10);
     scene.add(ambientLight);
-    const sunLight = new THREE.DirectionalLight(0xffffff, 1.2);
+    const sunLight = new THREE.DirectionalLight(0xffffff, 7);
     sunLight.position.set(10, 10, 10);
     scene.add(sunLight);
 
@@ -79,6 +80,16 @@ function init() {
     const filmPass = new FilmPass();
     composer.addPass(filmPass);
 
+    const listener = new THREE.AudioListener();
+    camera.add(listener);
+    sound = new THREE.Audio(listener);
+
+    const audioLoader = new THREE.AudioLoader;
+    audioLoader.load("assets/sounds/combined.mp3", function (buffer) {
+        sound.setBuffer(buffer);
+        sound.setLoop(false);
+        sound.setVolume(1.0);
+    });
 
 
     controls = new OrbitControls(camera, renderer.domElement);
@@ -114,7 +125,7 @@ function update() {
         if (flyingOut) {
             flightProgress += delta * flightSpeed;
             let t = Math.min(flightProgress, 1.0);
-            loadedModel.position.x = lerp(0, -20, t);
+            loadedModel.position.z = lerp(0, 20, t);
             loadedModel.scale.lerpVectors(new THREE.Vector3(1, 1, 1), new THREE.Vector3(0, 0, 0), t);
             if (t >= 1.0) {
 
@@ -129,19 +140,19 @@ function update() {
                 flyingOut = false;
                 flyingIn = true;
                 flightProgress = 0;
-                loadedModel.position.x = 20;
+                loadedModel.position.z = -20;
             }
         }
         if (flyingIn) {
             flightProgress += delta * flightSpeed;
             let t = Math.min(flightProgress, 1.0);
-            loadedModel.position.x = lerp(20, 0, t);
+            loadedModel.position.z = lerp(-20, 0, t);
             loadedModel.scale.lerpVectors(new THREE.Vector3(0, 0, 0), new THREE.Vector3(1, 1, 1), t);
 
             if (t >= 1.0) {
                 flyingIn = false;
                 flightProgress = 0;
-                loadedModel.position.x = 0;
+                loadedModel.position.z = 0;
             }
         }
 
@@ -241,6 +252,8 @@ switchButton.addEventListener('click', function () {
 
 function doSwithModel() {
     flyingOut = true;
+    if (sound.isPlaying) { sound.stop(); }
+    sound.play();
 
 }
 

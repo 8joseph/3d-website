@@ -8,20 +8,23 @@ import { Player } from './player.js'
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000000);
-
-const renderer = new THREE.WebGLRenderer();
+const canvas = document.getElementById("free-fly-canvas");
+const renderer = new THREE.WebGLRenderer({ canvas: canvas });
 
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.0;
 
-renderer.setSize(window.innerWidth, window.innerHeight);
+// Set size based on canvas container
+const container = canvas.parentElement;
+const width = container ? container.clientWidth : window.innerWidth;
+const height = container ? container.clientHeight || 400 : window.innerHeight;
+renderer.setSize(width, height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 renderer.setAnimationLoop(animate);
-document.body.appendChild(renderer.domElement);
 
 const loader = new GLTFLoader();
 
-const ambientLight = new THREE.AmbientLight(0xffffff, 2.0);
+const ambientLight = new THREE.AmbientLight(0xffffff, 5.0);
 scene.add(ambientLight);
 
 const hazeColor = new THREE.Color(0x001c42);
@@ -35,7 +38,7 @@ const renderPass = new RenderPass(scene, camera);
 composer.addPass(renderPass);
 const bloomPass = new UnrealBloomPass(
     new THREE.Vector2(window.innerWidth / 4, window.innerHeight / 4),
-    1.0,   // strength
+    0.4,   // strength
     0.3,   // radius
     0.1  // threshold
 );
@@ -45,7 +48,7 @@ const filmPass = new FilmPass();
 composer.addPass(filmPass);
 
 
-loader.load('models/city1.glb', function (gltf) {
+loader.load('models/citytest.glb', function (gltf) {
 
     scene.add(gltf.scene);
     gltf.scene.scale.set(80, 80, 80);
@@ -56,8 +59,11 @@ let lastTime = 0;
 let deltaTime = 0;
 
 
-
 const player = new Player(camera, scene);
+
+
+
+onResize();
 
 const movement = {
     forward: false,
@@ -66,6 +72,26 @@ const movement = {
     right: false,
     boost: false,
 };
+
+const audioLoader = new THREE.AudioLoader;
+const listener = new THREE.AudioListener();
+camera.add(listener);
+let ambientSound = new THREE.Audio(listener);
+audioLoader.load("assets/sounds/ambience.mp3", function (buffer) {
+    ambientSound.setBuffer(buffer);
+    ambientSound.setLoop(false);
+    ambientSound.setVolume(0.2);
+    ambientSound.setLoop(true);
+    ambientSound.play();
+});
+let engineSound = new THREE.Audio(listener);
+audioLoader.load("assets/sounds/SpaceshipEngine_S011SF.692.wav", function (buffer) {
+    engineSound.setBuffer(buffer);
+    engineSound.setLoop(false);
+    engineSound.setVolume(0.4);
+    engineSound.setLoop(true);
+    engineSound.play();
+});
 
 
 
@@ -77,15 +103,44 @@ function animate(time) {
 
     composer.render();
 
+    if (movement.forward || movement.backward) {
+        engineSound.setDetune(400);
+    } else if (movement.left || movement.right) {
+        engineSound.setDetune(200);
+    }
+    else {
+        engineSound.setDetune(0);
+    }
+    if (movement.boost) {
+        engineSound.setVolume(0.6);
+    } else {
+        engineSound.setVolume(0.4);
+    }
+
 }
 
-window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-});
+window.addEventListener('resize', onresize);
 
+function onResize() {
+    // camera.aspect = window.innerWidth / window.innerHeight;
+    // camera.updateProjectionMatrix();
+    // renderer.setSize(window.innerWidth, window.innerHeight);
+    // renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    const canvas = document.getElementById("free-fly-canvas")
+    canvas.style.display = 'none';
+    const container = document.querySelector('.model-container');
+    const width = container ? container.clientWidth : window.innerWidth;
+    const height = container ? container.clientHeight || 400 : window.innerHeight;
+    canvas.style.display = 'block';
+
+
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+    renderer.setSize(width, height);
+    renderer.domElement.style.width = '100%';
+    renderer.domElement.style.height = '100%';
+    composer.setSize(width, height);
+}
 
 window.addEventListener("keydown", (event) => {
     switch (event.key.toLowerCase()) {
@@ -94,6 +149,10 @@ window.addEventListener("keydown", (event) => {
         case "a": movement.left = true; break;
         case "d": movement.right = true; break;
         case "shift": movement.boost = true; break;
+        case "1": player.loadShip("models/ships/tie-fighter.glb"); break;
+        case "2": player.loadShip("models/ships/lambda-shuttle.glb"); break;
+        case "3": player.loadShip("models/ships/spacejet.glb"); break;
+
 
     }
 });
@@ -108,3 +167,4 @@ window.addEventListener("keyup", (event) => {
 
     }
 });
+

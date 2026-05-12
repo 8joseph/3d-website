@@ -10,12 +10,12 @@ export class Player {
         this.camera = camera;
         this.scene = scene;
         this.container = new THREE.Group();
-        this.container.position.set(0, 4000, 1000);
+        this.container.position.set(0, 2000, 0);
         this.scene.add(this.container);
         this.position = this.container.position;
         const loader = new GLTFLoader();
         this.model = null;
-        loader.load('models/ship.glb', (gltf) => {
+        loader.load('models/ships/tie-fighter.glb', (gltf) => {
             this.model = gltf.scene;
             this.model.scale.set(100, 100, 100);
             this.container.add(this.model);
@@ -85,7 +85,6 @@ export class Player {
 
         //model rotation
         const { targetSideRotation, targetFrontRotation } = this.getTargetRotation(movement);
-        console.log(targetSideRotation);
         if (this.model != null) {
             this.model.rotation.z = this.lerp(this.model.rotation.z, THREE.MathUtils.degToRad(targetSideRotation), delta * 0.003);
             this.model.rotation.x = this.lerp(this.model.rotation.x, THREE.MathUtils.degToRad(targetFrontRotation), delta * 0.003);
@@ -106,6 +105,20 @@ export class Player {
         this.camera.up.copy(shipUp);
         this.camera.lookAt(this.position);
     }
+
+    loadShip(path) {
+        const loader = new GLTFLoader();
+        this.container.clear();
+
+        loader.load(path, (gltf) => {
+            this.model = gltf.scene;
+            this.model.scale.set(100, 100, 100);
+            this.container.add(this.model);
+        });
+    }
+
 }
+
+
 
 
